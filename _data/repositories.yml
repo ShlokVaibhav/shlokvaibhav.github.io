@@ -1,14 +1,11 @@
 github_users:
-  - torvalds
-  - alshedivat
+  - shlokvaibhav
 
 repo_description_lines_max: 2
 
 github_repos:
-  - alshedivat/al-folio
-  - jekyll/jekyll
-  - twbs/bootstrap
-  - jquery/jquery
-  - FortAwesome/Font-Awesome
-  - mathjax/MathJax
-  - jpswalsh/academicons
+  - ShlokVaibhav/HCGA
+  - ShlokVaibhav/ECG-dilineater
+  - ShlokVaibhav/Train
+  - ShlokVaibhav/MultiResolution-Analysis-and-Wavelets
+  - ShlokVaibhav/Filter_Design_EE338
