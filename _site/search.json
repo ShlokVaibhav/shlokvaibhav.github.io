@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "shlokvaibhav.github.io",
+    "section": "",
+    "text": "Sapere Aude! (Or Dare to Think!)\nHi, I’m Shlok Vaibhav, a chip-designer on Ethernet-SerDes product line at Texas Instruments India. I am also an open-source contributor to PhysLean. I did my undergrad and masters at Indian Institute of Technology, Bombay. I am interested in time-domain simulation of nanoelectronics structures using Non-Equilibrium Green’s Function approach.\nI am also interested in Sinology and Enlightement Era."
+  }
+]
