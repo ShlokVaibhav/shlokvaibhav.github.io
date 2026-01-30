@@ -1,4 +1,1 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://shlokvaibhav.github.io/sitemap.xml
+Sitemap: https://ShlokVaibhav.github.io/shlokvaibhav.github.io/sitemap.xml
