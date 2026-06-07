@@ -202,6 +202,79 @@ a:hover {
 /* Each cover keeps its own native ratio (set inline per image) so nothing is cropped. */
 .cards.feature .c-img { aspect-ratio: auto; background: var(--paper-2); }
 
+/* Books — portrait covers (Leon-style visual archive) + title & 2-line dek */
+.cards.books { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); align-items: start; }
+.cards.books .c-img { aspect-ratio: 2 / 3; }
+
+/* Placeholder tile — used until a real <img> cover/photo is dropped in.
+   Put on a <span class="c-img ph"> with the title as its text. */
+.c-img.ph {
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  font-family: var(--label);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* small mono kicker above a card title (e.g. "YouTube · Playlist") */
+.c-kicker {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--label);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.c-kicker + .c-title { margin-top: 3px; }
+
+/* Photo grid — your own square images (origami, cafés, …) */
+.photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+.photos figure { margin: 0; }
+.photos .c-img, .photos img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper-2);
+}
+.photos figcaption {
+  margin-top: 7px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* Blogroll — a curated list of links (name + one-line note) */
+.linklist { display: grid; max-width: var(--measure); margin-top: 4px; }
+.linklist a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: baseline;
+  padding: 13px 0;
+  border-top: 1px solid var(--rule-soft);
+  color: var(--ink);
+}
+.linklist a:first-child { border-top: 0; }
+.linklist a:hover { text-decoration: none; }
+.linklist a:hover .ll-name { color: var(--accent-ink); }
+.linklist .ll-name { font-size: 18px; }
+.linklist .ll-note { font-size: 14px; font-style: italic; color: var(--faint); text-align: right; white-space: nowrap; }
+
 
 /* 9. INTERESTS / TAGS (middot-separated inline list) ======================= */
 .interests {
@@ -332,4 +405,6 @@ a:hover {
   .cv-row { grid-template-columns: 1fr; gap: 4px; }
   .cards { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
   .cards.feature { grid-template-columns: 1fr; }
+  .linklist a { grid-template-columns: 1fr; gap: 2px; }
+  .linklist .ll-note { text-align: left; }
 }
