@@ -110,7 +110,7 @@ a:hover {
 
 
 /* 5. HERO (home) =========================================================== */
-.hero { padding: 54px 0 10px; }
+.hero { padding: 54px 0 10px; text-align: center; }
 .hero .motto {
   margin: 0;
   font-size: clamp(54px, 11vw, 88px);
@@ -121,6 +121,7 @@ a:hover {
 }
 .hero .who { margin: 20px 0 0; font-size: 18px; color: var(--muted); }
 .hero .who .nm { color: var(--ink); }
+.hero-social { margin-top: 22px; justify-content: center; }
 
 
 /* 6. PROSE ================================================================= */
@@ -382,15 +383,10 @@ a:hover {
   gap: 18px;
   flex-wrap: wrap;
 }
-.social { display: flex; gap: 22px; flex-wrap: wrap; }
-.social a {
-  font-family: var(--label);
-  font-size: 11.5px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
+.social { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+.social a { display: inline-flex; color: var(--muted); }
 .social a:hover { color: var(--accent); text-decoration: none; }
+.social svg { width: 19px; height: 19px; fill: currentColor; display: block; }
 .colophon {
   font-family: var(--label);
   font-size: 11px;
