@@ -33,17 +33,22 @@
   </section>
 
   <!-- LISTENING ------------------------------------------------------------ -->
-  <!-- TO ADD A PLAYLIST/VIDEO: swap the placeholder <span class="c-img ph"> for a
-       thumbnail <img class="c-img" style="aspect-ratio: 16/9" src="…" alt="">, and
-       point href at the YouTube link. -->
+  <!-- TO ADD A VIDEO: copy a card. The thumbnail is YouTube's own preview —
+       https://img.youtube.com/vi/<VIDEO_ID>/hqdefault.jpg — and href is the watch URL. -->
   <section class="section">
     <p class="lbl">Listening</p>
-    <div class="cards" style="grid-template-columns: minmax(0, 320px);">
-      <a class="card" href="https://www.youtube.com/">
-        <span class="c-img ph" style="aspect-ratio: 16 / 9;">Playlist thumbnail</span>
-        <span class="c-kicker">YouTube · Playlist</span>
-        <span class="c-title">Don Giovanni</span>
-        <span class="c-dek">Mozart's opera, the arias I return to — in performance order.</span>
+    <div class="cards listen">
+      <a class="card" href="https://www.youtube.com/watch?v=NKI5NJ1ukUo">
+        <img class="c-img" loading="lazy" style="aspect-ratio: 16 / 9" src="https://img.youtube.com/vi/NKI5NJ1ukUo/hqdefault.jpg" alt="">
+        <span class="c-kicker">YouTube · Carlos Kleiber</span>
+        <span class="c-title">New Year's Concert 1989</span>
+        <span class="c-dek">Kleiber conducting the Vienna Philharmonic — the most joyful baton ever raised.</span>
+      </a>
+      <a class="card" href="https://www.youtube.com/watch?v=iexHzW7FPTI">
+        <img class="c-img" loading="lazy" style="aspect-ratio: 16 / 9" src="https://img.youtube.com/vi/iexHzW7FPTI/hqdefault.jpg" alt="">
+        <span class="c-kicker">YouTube · Mozart</span>
+        <span class="c-title">Don Giovanni — finale (instrumental)</span>
+        <span class="c-dek">The Don dragged to hell, scored without a single voice. Pure dread in D minor.</span>
       </a>
     </div>
   </section>
@@ -65,9 +70,13 @@
   <section class="section">
     <p class="lbl">Café-hopping · South Bengaluru</p>
     <p class="prose" style="margin-top:-6px">Where I go to read and think. A running, opinionated list — quiet corners, good filter coffee, somewhere a laptop isn't frowned upon.</p>
+    <figure class="feature-photo">
+      <img loading="lazy" src="media/hobbies/jayanagar-5th-block.png" alt="">
+      <figcaption>Jayanagar 5th Block — rattan chairs, big windows, a tree-lined street outside.</figcaption>
+    </figure>
     <!-- TO ADD A CAFÉ: copy one row. The right column is a one-line verdict. -->
     <div class="linklist">
-      <a href="#"><span class="ll-name">Café name</span><span class="ll-note">one-line verdict</span></a>
+      <a href="#"><span class="ll-name">Jayanagar 5th Block</span><span class="ll-note">light, calm, unbothered — my default desk</span></a>
       <a href="#"><span class="ll-name">Café name</span><span class="ll-note">one-line verdict</span></a>
       <a href="#"><span class="ll-name">Café name</span><span class="ll-note">one-line verdict</span></a>
     </div>

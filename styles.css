@@ -158,7 +158,7 @@ a:hover {
 /* 8. CARD GRID (writing & notes — matplotlib plot-types style) ============= */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(138px, 152px));
+  grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
   justify-content: start;
   gap: 26px 20px;
   margin-top: 4px;
@@ -203,9 +203,16 @@ a:hover {
 /* Each cover keeps its own native ratio (set inline per image) so nothing is cropped. */
 .cards.feature .c-img { aspect-ratio: auto; background: var(--paper-2); }
 
-/* Books — portrait covers (Leon-style visual archive) + title & 2-line dek */
+/* Listening — YouTube cards, 3-up; hqdefault is 4:3 so cover-crop to the 16:9 frame */
+.cards.listen { grid-template-columns: repeat(3, 1fr); align-items: start; }
+.cards.listen .c-title { line-height: 1.25; }
+.cards.listen .c-dek { font-size: 13.5px; margin-top: 7px; }
+
+/* Books — visual archive; each cover keeps its native ratio (set inline) so nothing crops */
 .cards.books { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); align-items: start; }
-.cards.books .c-img { aspect-ratio: 2 / 3; }
+.cards.books .c-img { aspect-ratio: 3 / 4; background: var(--paper-2); }
+.cards.books .c-title { line-height: 1.25; }
+.cards.books .c-dek { margin-top: 7px; font-size: 13.5px; }
 
 /* Placeholder tile — used until a real <img> cover/photo is dropped in.
    Put on a <span class="c-img ph"> with the title as its text. */
@@ -253,6 +260,25 @@ a:hover {
 }
 .photos figcaption {
   margin-top: 7px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* Feature photo — a single capped landscape image (e.g. a café) */
+.feature-photo { margin: 6px 0 0; max-width: 520px; }
+.feature-photo img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper-2);
+}
+.feature-photo figcaption {
+  margin-top: 8px;
   font-size: 14px;
   font-style: italic;
   color: var(--muted);
@@ -401,6 +427,7 @@ a:hover {
   .cv-row { grid-template-columns: 1fr; gap: 4px; }
   .cards { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
   .cards.feature { grid-template-columns: 1fr; }
+  .cards.listen { grid-template-columns: 1fr; }
   .linklist a { grid-template-columns: 1fr; gap: 2px; }
   .linklist .ll-note { text-align: left; }
 }
