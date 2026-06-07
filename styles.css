@@ -1,1 +1,335 @@
-/* css styles */
+/* ==========================================================================
+   shlokvaibhav.github.io — stylesheet
+   --------------------------------------------------------------------------
+   One file, no preprocessor, no framework. Plain CSS custom properties.
+
+   CONTENTS
+     1. Design tokens .......... colours, fonts, page metrics (edit here)
+     2. Base ................... reset, body, links
+     3. Layout ................. .wrap page column
+     4. Header ................. .site nav (shared across pages)
+     5. Hero ................... home: "Sapere Aude" + intro
+     6. Prose .................. body paragraphs, dropcap
+     7. Sections ............... .section + .lbl labels, horizontal rule
+     8. Card grid .............. .cards / .card (writing & notes thumbnails)
+     9. Interests / tags ....... middot-separated inline list
+    10. Publications .......... .pub citation block (research, cv)
+    11. CV ..................... .cv-row two-column rows + download button
+    12. Page head ............. inner-page titles
+    13. Footer ................ .foot social links
+    14. Responsive ............ single mobile breakpoint
+   ========================================================================== */
+
+
+/* 1. DESIGN TOKENS ========================================================= */
+:root {
+  /* Cool-neutral paper, ink text, one teal-blue accent. */
+  --paper:      oklch(0.993 0.003 230);   /* page background          */
+  --paper-2:    oklch(0.975 0.004 235);   /* thumbnail / inset fill   */
+  --ink:        oklch(0.26 0.014 250);    /* primary text             */
+  --muted:      oklch(0.50 0.014 250);    /* secondary text           */
+  --faint:      oklch(0.64 0.012 250);    /* labels, meta             */
+  --rule:       oklch(0.90 0.006 245);    /* borders                  */
+  --rule-soft:  oklch(0.94 0.005 245);    /* row dividers             */
+  --accent:     oklch(0.50 0.085 222);    /* links                    */
+  --accent-ink: oklch(0.42 0.090 222);    /* link hover / emphasis    */
+  --accent-bg:  oklch(0.955 0.020 222);   /* button hover fill        */
+
+  --serif: "EB Garamond", Garamond, "Adobe Garamond Pro", Georgia, "Times New Roman", serif;
+  --label: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --measure:   66ch;     /* comfortable reading width */
+  --pagewidth: 720px;    /* outer column width        */
+}
+
+
+/* 2. BASE ================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover {
+  color: var(--accent-ink);
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
+  text-decoration-thickness: 1px;
+}
+
+
+/* 3. LAYOUT ================================================================ */
+.wrap {
+  max-width: var(--pagewidth);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+
+/* 4. HEADER (shared across every page) ===================================== */
+.site {
+  max-width: var(--pagewidth);
+  margin: 0 auto;
+  padding: 26px 28px 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.site .wordmark {
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.site .wordmark:hover { color: var(--accent); text-decoration: none; }
+
+.site nav { display: flex; gap: 20px; flex-wrap: wrap; }
+.site nav a {
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.site nav a:hover { color: var(--accent); text-decoration: none; }
+.site nav a[aria-current="page"] { color: var(--ink); }
+
+
+/* 5. HERO (home) =========================================================== */
+.hero { padding: 54px 0 10px; }
+.hero .motto {
+  margin: 0;
+  font-size: clamp(54px, 11vw, 88px);
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+}
+.hero .who { margin: 20px 0 0; font-size: 18px; color: var(--muted); }
+.hero .who .nm { color: var(--ink); }
+
+
+/* 6. PROSE ================================================================= */
+.prose { max-width: var(--measure); }
+.prose p { margin: 1.05em 0; }
+.lede { font-size: 21px; margin-top: 34px; }
+
+/* Classic dropcap on the opening paragraph. */
+.dropcap::first-letter {
+  float: left;
+  font-size: 3.1em;
+  line-height: 0.82;
+  font-weight: 500;
+  padding: 6px 10px 0 0;
+  color: var(--accent-ink);
+}
+
+
+/* 7. SECTIONS ============================================================== */
+.rule { border: 0; border-top: 1px solid var(--rule); margin: 52px 0 0; }
+
+.section { margin-top: 46px; }
+.section > .lbl {
+  margin: 0 0 18px;
+  font-family: var(--label);
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.more { margin-top: 26px; font-size: 17px; }
+
+
+/* 8. CARD GRID (writing & notes — matplotlib plot-types style) ============= */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(138px, 152px));
+  justify-content: start;
+  gap: 26px 20px;
+  margin-top: 4px;
+}
+.card { display: block; color: var(--ink); }
+.card:hover { text-decoration: none; }
+
+.card .c-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper-2);
+  transition: border-color 120ms ease;
+}
+.card:hover .c-img { border-color: var(--faint); }
+
+.card .c-title {
+  display: block;
+  margin-top: 10px;
+  font-size: 17px;
+  line-height: 1.2;
+  text-wrap: pretty;
+}
+.card:hover .c-title { color: var(--accent-ink); }
+
+.card .c-dek {
+  display: block;
+  margin-top: 5px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--muted);
+  font-style: italic;
+  text-wrap: pretty;
+}
+
+/* 3-up feature row (writing index) — equal columns, full subtitles */
+.cards.feature { grid-template-columns: repeat(3, 1fr); align-items: start; }
+.cards.feature .c-dek { font-size: 13.5px; }
+/* Each cover keeps its own native ratio (set inline per image) so nothing is cropped. */
+.cards.feature .c-img { aspect-ratio: auto; background: var(--paper-2); }
+
+
+/* 9. INTERESTS / TAGS (middot-separated inline list) ======================= */
+.interests {
+  max-width: var(--measure);
+  font-size: 17.5px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+.interests span { white-space: nowrap; }
+.interests span:not(:last-child)::after {
+  content: "·";
+  margin: 0 0.55em;
+  color: var(--rule);
+  white-space: normal;
+}
+
+
+/* 10. PUBLICATIONS (research, cv) ========================================== */
+.pub { padding: 24px 0; border-top: 1px solid var(--rule-soft); }
+.pub:first-of-type { border-top: 0; padding-top: 6px; }
+.pub h3 { margin: 0; font-size: 21px; font-weight: 500; line-height: 1.28; }
+.pub h3 a { color: var(--ink); }
+.pub h3 a:hover { color: var(--accent-ink); }
+.pub .venue { margin: 7px 0 0; font-size: 17px; font-style: italic; color: var(--muted); }
+.pub .authors { margin: 6px 0 0; font-size: 16px; color: var(--muted); }
+.pub .authors .me { color: var(--ink); }
+.pub .pub-meta {
+  margin-top: 9px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--label);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+}
+.pub .note { margin: 9px 0 0; font-size: 16px; color: var(--muted); }
+
+
+/* 11. CV =================================================================== */
+.cv-actions { margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  padding: 11px 17px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.btn:hover { border-color: var(--accent); background: var(--accent-bg); text-decoration: none; }
+
+.cv-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 26px;
+  padding: 20px 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.cv-row:first-of-type { border-top: 0; }
+.cv-when {
+  padding-top: 5px;
+  font-family: var(--label);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--faint);
+}
+.cv-what h3 { margin: 0; font-size: 21px; font-weight: 500; }
+.cv-what .org { color: var(--muted); font-style: italic; }
+.cv-what p { margin: 8px 0 0; font-size: 17px; color: var(--muted); }
+.cv-what ul { margin: 9px 0 0; padding-left: 1.15em; }
+.cv-what li { margin: 5px 0; font-size: 16.5px; line-height: 1.5; color: var(--muted); }
+.cv-what li::marker { color: var(--faint); }
+
+
+/* 12. PAGE HEAD (inner pages) ============================================== */
+.page-head { padding: 52px 0 0; }
+.page-head h1 {
+  margin: 0;
+  font-size: clamp(34px, 6vw, 46px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.page-head .sub {
+  margin: 14px 0 0;
+  max-width: var(--measure);
+  font-size: 19px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+
+/* 13. FOOTER (shared across every page) ==================================== */
+.foot {
+  max-width: var(--pagewidth);
+  margin: 64px auto 0;
+  padding: 26px 28px 56px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.social { display: flex; gap: 22px; flex-wrap: wrap; }
+.social a {
+  font-family: var(--label);
+  font-size: 11.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.social a:hover { color: var(--accent); text-decoration: none; }
+.colophon {
+  font-family: var(--label);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+}
+
+
+/* 14. RESPONSIVE (single breakpoint) ======================================= */
+@media (max-width: 620px) {
+  body { font-size: 18px; }
+  .cv-row { grid-template-columns: 1fr; gap: 4px; }
+  .cards { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
+  .cards.feature { grid-template-columns: 1fr; }
+}
