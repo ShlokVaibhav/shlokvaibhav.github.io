@@ -422,37 +422,25 @@ a:hover {
 }
 
 
-/* 14. HOBBY ACCORDION ======================================================= */
-.hobby-section { border-top: 1px solid var(--rule-soft); }
-.hobby-section summary {
+/* 14. HOBBY SHOW-MORE ======================================================= */
+.hobby-more { margin-top: 20px; }
+.hobby-more > summary {
   list-style: none;
   cursor: pointer;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 16px 0;
-  margin: 0;
+  display: inline-block;
   font-family: var(--label);
-  font-size: 11.5px;
-  letter-spacing: 0.18em;
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--faint);
   user-select: none;
 }
-.hobby-section summary::-webkit-details-marker { display: none; }
-.hobby-section summary::after {
-  content: '+';
-  font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1;
-  color: var(--rule);
-  transition: color 120ms ease;
-}
-.hobby-section[open] summary::after { content: '−'; }
-.hobby-section summary:hover { color: var(--ink); }
-.hobby-section summary:hover::after { color: var(--faint); }
-.hobby-body { padding-bottom: 36px; }
+.hobby-more > summary::-webkit-details-marker { display: none; }
+.hobby-more > summary::after { content: ' ▾'; }
+.hobby-more[open] > summary::after { content: ' ▴'; }
+.hobby-more > summary:hover { color: var(--ink); }
+.hobby-more > .cards,
+.hobby-more > .linklist { margin-top: 20px; }
 
 
 /* 14b. BOOK REVIEW ========================================================= */
