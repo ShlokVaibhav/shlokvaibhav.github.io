@@ -119,6 +119,7 @@ a:hover {
   letter-spacing: -0.018em;
   color: var(--ink);
 }
+.hero .motto-sub { margin: 12px 0 0; font-size: 18px; font-style: italic; color: var(--muted); line-height: 1.5; }
 .hero .who { margin: 20px 0 0; font-size: 18px; color: var(--muted); }
 .hero .who .nm { color: var(--ink); }
 .hero-social { margin-top: 22px; justify-content: center; }
