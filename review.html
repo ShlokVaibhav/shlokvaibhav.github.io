@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Books — Shlok Vaibhav</title>
-<meta name="description" content="Books Shlok Vaibhav has read and reviewed — a visual archive, with reviews on Substack.">
+<title>Review — Shlok Vaibhav</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
@@ -12,59 +11,23 @@
 </head>
 <body>
 
-<!-- ====== shared header (keep in sync across pages) ====== -->
 <header class="site">
   <a class="wordmark" href="index.html">Shlok Vaibhav</a>
   <nav>
     <a href="notes.html">Tech Digest</a>
     <a href="research.html">Research</a>
     <a href="cv.html">CV</a>
-    <a href="books.html" aria-current="page">Books</a>
+    <a href="books.html">Books</a>
     <a href="writing.html">Writing</a>
     <a href="hobbies.html">Hobbies</a>
   </nav>
 </header>
 
 <main class="wrap">
-
-  <section class="page-head">
-    <h1>Books</h1>
-    <p class="sub">A visual archive of what I've read, newest first. Each cover links to a short review on <a href="https://shlokvaibhav.substack.com/">Substack</a>; the two lines beneath are the gist.</p>
-  </section>
-
-  <section class="section">
-    <p class="lbl">2026</p>
-    <!-- TO ADD A BOOK: copy one card below. Set the cover's native ratio inline
-         (style="aspect-ratio: W / H") so it isn't cropped; put the cover in media/books/. -->
-    <div class="cards books">
-      <a class="card" href="https://shlokvaibhav.substack.com/">
-        <img class="c-img" loading="lazy" src="media/books/hobsbawm-age-of.png" alt="">
-        <span class="c-title">The Age of… — Eric Hobsbawm</span>
-        <span class="c-dek">His four-volume history of the long nineteenth century and after: Revolution, Capital, Empire, Extremes.</span>
-      </a>
-      <a class="card" href="review.html?book=hume-harris">
-        <img class="c-img" loading="lazy" src="media/books/hume-harris.png" alt="">
-        <span class="c-title">Hume: An Intellectual Biography</span>
-        <span class="c-dek">James A. Harris on Hume the man of letters — the philosophy read through the whole life and work.</span>
-      </a>
-      <a class="card" href="https://shlokvaibhav.substack.com/">
-        <img class="c-img" loading="lazy" src="media/books/evolutions-witness.png" alt="">
-        <span class="c-title">Evolution's Witness</span>
-        <span class="c-dek">Ivan R. Schwab on how eyes evolved — the long, strange engineering history of sight.</span>
-      </a>
-      <a class="card" href="https://shlokvaibhav.substack.com/">
-        <img class="c-img" loading="lazy" src="media/books/to-explain-the-world.png" alt="">
-        <span class="c-title">To Explain the World</span>
-        <span class="c-dek">Steven Weinberg on the discovery of modern science — a physicist's history of how we learned to explain.</span>
-      </a>
-    </div>
-  </section>
-
-  <p class="more"><a href="https://shlokvaibhav.substack.com/">All reviews on Substack →</a></p>
-
+  <nav class="breadcrumb" id="breadcrumb"></nav>
+  <div id="content" class="prose review-prose"><p class="loading">Loading…</p></div>
 </main>
 
-<!-- ====== shared footer (keep in sync across pages) ====== -->
 <footer class="foot">
   <nav class="social">
     <a href="https://github.com/ShlokVaibhav" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
@@ -76,5 +39,44 @@
   <span class="colophon">© 2026 Shlok Vaibhav</span>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const BOOKS = {
+  'hume-harris': 'Hume: An Intellectual Biography'
+};
+
+const params   = new URLSearchParams(location.search);
+const book     = params.get('book');
+const ch       = params.get('ch');
+const content  = document.getElementById('content');
+const bc       = document.getElementById('breadcrumb');
+
+if (!book || !BOOKS[book]) {
+  content.innerHTML = '<p>Book not found.</p>';
+} else {
+  const bookTitle = BOOKS[book];
+  const mdPath    = ch ? `reviews/${book}/${ch}.md` : `reviews/${book}/index.md`;
+
+  fetch(mdPath)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(md => {
+      content.innerHTML = marked.parse(md);
+
+      const h1 = content.querySelector('h1');
+      const pageTitle = h1 ? h1.textContent : bookTitle;
+      document.title = pageTitle + ' — Shlok Vaibhav';
+
+      if (ch) {
+        bc.innerHTML = `<a href="books.html">Books</a><span class="bc-sep">›</span><a href="review.html?book=${book}">${bookTitle}</a><span class="bc-sep">›</span><span>${pageTitle}</span>`;
+      } else {
+        bc.innerHTML = `<a href="books.html">Books</a><span class="bc-sep">›</span><span>${pageTitle}</span>`;
+      }
+    })
+    .catch(() => {
+      content.innerHTML = '<p>Review not found or not yet written.</p>';
+      bc.innerHTML = `<a href="books.html">Books</a><span class="bc-sep">›</span><span>${bookTitle}</span>`;
+    });
+}
+</script>
 </body>
 </html>

@@ -422,7 +422,32 @@ a:hover {
 }
 
 
-/* 14. RESPONSIVE (single breakpoint) ======================================= */
+/* 14. BOOK REVIEW =========================================================== */
+.breadcrumb {
+  margin: 40px 0 0;
+  font-family: var(--label);
+  font-size: 11.5px;
+  letter-spacing: 0.07em;
+  color: var(--faint);
+}
+.breadcrumb a { color: var(--faint); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+.bc-sep { margin: 0 7px; }
+
+.review-prose { margin-top: 36px; }
+.review-prose h1 { margin: 0 0 6px; font-size: clamp(28px, 5vw, 38px); font-weight: 500; line-height: 1.08; letter-spacing: -0.01em; }
+.review-prose h2 { margin: 2em 0 0.4em; font-size: 22px; font-weight: 500; }
+.review-prose h3 { margin: 1.6em 0 0.3em; font-size: 18px; font-weight: 500; }
+.review-prose ul, .review-prose ol { padding-left: 1.4em; }
+.review-prose li { margin: 0.35em 0; }
+.review-prose hr { border: 0; border-top: 1px solid var(--rule); margin: 40px 0; }
+.review-prose blockquote { margin: 1.4em 0; padding: 0 0 0 20px; border-left: 3px solid var(--rule); color: var(--muted); font-style: italic; }
+.review-prose a { color: var(--accent); }
+.review-prose a:hover { color: var(--accent-ink); }
+.review-prose .loading { color: var(--faint); font-style: italic; }
+
+
+/* 15. RESPONSIVE (single breakpoint) ======================================= */
 @media (max-width: 620px) {
   body { font-size: 18px; }
   .cv-row { grid-template-columns: 1fr; gap: 4px; }
