@@ -1,9 +1,3 @@
-# Dialogue 7 · Hume
-
-*Dialogue 7 · The Great Philosophers — Bryan Magee*
-
----
-
 The Great Infidel, The magnificent Disconcertor, The warmest thinker, The Clarion of the Enlightenment, The Siren of scepticism, Heretic's last laugh - Hume has collected more titles than any nobility or clergy. 
 
 This dialogue between Magee and Passmore is very disconcerting, plainly because it pertains to the great infidel. 
