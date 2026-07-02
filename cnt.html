@@ -57,6 +57,7 @@ graphene <span class="citation"
 data-cites="netoElectronicPropertiesGraphene2009">(Castro Neto et al.
 2009)</span>, is expressed as:</p>
 <p><span class="math display">\[\begin{equation}
+\label{eq:band-structure}
     E = \pm t_0 \sqrt{f(k_x, m)} = \pm t_0
 \sqrt{1+4\cos\bigg{(}\frac{3k_xa}{2}\bigg{)}\cos\bigg{(}\frac{\pi
 m}{N}\bigg{)}+4\cos^2\bigg{(}\frac{\pi m}{N}\bigg{)} }
@@ -68,10 +69,10 @@ class="math inline">\(N-1\)</span>.</p>
 <h3 id="analytical-expression-for-band-gap">Analytical expression for
 band-gap</h3>
 <p>CNT is one of those nice systems where the band-gap can be expressed
-analytically. In (1), consider the bands with a <span
-class="math inline">\(+\)</span> sign. Then the band-minimum, <span
-class="math inline">\(E_{min_m}\)</span> for a given band index, <span
-class="math inline">\(m\)</span>, occurs when <span
+analytically. In \(\eqref{eq:band-structure}\), consider the
+bands with a <span class="math inline">\(+\)</span> sign. Then the
+band-minimum, <span class="math inline">\(E_{min_m}\)</span> for a given
+band index, <span class="math inline">\(m\)</span>, occurs when <span
 class="math display">\[\begin{equation}
 \partial_{k_x}f(k_x, m)=0 \implies \frac{3k_xa}{2} \in \{0,\pi\}
 \end{equation}\]</span></p>
@@ -122,7 +123,16 @@ near the band-minimum:</p>
 unit length, so that it is an intensive quantity. The DoS can be written
 for the case of 1D CNT as: <span class="math display">\[\begin{equation}
     D(E) = \frac{1}{L}\frac{ \text{\# States in [k, k+dk]}}{dk(E)}
-\end{equation}\]</span> We already know dk(E) from above</p>
+\end{equation}\]</span></p>
+<p>In section 1.1 we discovered that a band minimum pairs <span
+class="math inline">\(m_0\)</span> with <span
+class="math inline">\(\frac{3k_x a}{2} = \pi\)</span>. So equation (1)
+can be rewritten as: <span class="math display">\[\begin{equation}
+    E = \pm t_0 \sqrt{1-4\cos\bigg{(}\frac{\pi
+m_0}{N}\bigg{)}\cos\bigg{(}\frac{3k_xa}{2}\bigg{)}+4\cos^2\bigg{(}\frac{\pi
+m_0}{N}\bigg{)} }
+\end{equation}\]</span></p>
+<p>We already know dk(E) from above</p>
 <p>k-states are spaced uniformly with space <span
 class="math inline">\(d \bigg{(}\frac{3k_x a}{2}\bigg{)} = \frac{3\pi
 a}{L}\)</span></p>
