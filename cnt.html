@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Short-Channel CNT Schottky Barrier — Shlok Vaibhav</title>
+<meta name="description" content="Analytic derivation of the band gap, density of states, and surface charge density for short-channel carbon nanotube transistors." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .paper { line-height: 1.6; }
+  .paper h2 { margin-top: 2.2rem; }
+  .paper figure { margin: 2rem auto; text-align: center; }
+  .paper figure img { max-width: 100%; height: auto; }
+  .paper figcaption { font-size: .9rem; opacity: .72; margin-top: .5rem; }
+  .paper mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; padding: .2rem 0; }
+  .csl-bib-body { margin-top: .6rem; }
+  .csl-entry { margin: .6rem 0; padding-left: 1.4rem; text-indent: -1.4rem; }
+</style>
+<script>window.MathJax = { tex: { tags: 'ams' } };</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <a class="wordmark" href="index.html">Shlok Vaibhav</a>
+  <nav>
+    <a href="notes.html">Tech Digest</a>
+    <a href="research.html">Research</a>
+    <a href="cv.html">CV</a>
+    <a href="books.html">Books</a>
+    <a href="writing.html">Writing</a>
+    <a href="hobbies.html">Hobbies</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="page-head">
+    <h1>Short-Channel CNT Schottky Barrier</h1>
+    <p class="sub">An analytic derivation of the band gap, density of states, and surface charge density for short-channel carbon nanotube transistors — replicating the Léonard–Stewart NEGF study. <a href="https://github.com/ShlokVaibhav/Panjwa/blob/main/CNT%20Paper/CNT.pdf">PDF →</a> &nbsp;·&nbsp; <a href="https://github.com/ShlokVaibhav/Panjwa/tree/main/CNT%20Paper">LaTeX source →</a></p>
+  </section>
+
+  <article class="paper">
+
+<h2 id="introduction">Introduction</h2>
+<figure id="fig:graphene-lattice-bz" data-latex-placement="ht">
+<img src="papers/cnt-graphene-lattice-bz.png"
+style="width:80.0%" />
+<figcaption>Graphene lattice and its Brillouin zone.</figcaption>
+</figure>
+<p>Given the above coordinate choice for graphene unit cell, the band
+structure of a (N,0) CNT, obtained from the tight-binding model of
+graphene <span class="citation"
+data-cites="netoElectronicPropertiesGraphene2009">(Castro Neto et al.
+2009)</span>, is expressed as:</p>
+<p><span class="math display">\[\begin{equation}
+    E = \pm t_0 \sqrt{f(k_x, m)} = \pm t_0
+\sqrt{1+4\cos\bigg{(}\frac{3k_xa}{2}\bigg{)}\cos\bigg{(}\frac{\pi
+m}{N}\bigg{)}+4\cos^2\bigg{(}\frac{\pi m}{N}\bigg{)} }
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(t_0 = 2.5eV\)</span> is the
+tight-binding coupling constant and m is an index that runs from <span
+class="math inline">\(0\)</span> to <span
+class="math inline">\(N-1\)</span>.</p>
+<h3 id="analytical-expression-for-band-gap">Analytical expression for
+band-gap</h3>
+<p>CNT is one of those nice systems where the band-gap can be expressed
+analytically. In (1), consider the bands with a <span
+class="math inline">\(+\)</span> sign. Then the band-minimum, <span
+class="math inline">\(E_{min_m}\)</span> for a given band index, <span
+class="math inline">\(m\)</span>, occurs when <span
+class="math display">\[\begin{equation}
+\partial_{k_x}f(k_x, m)=0 \implies \frac{3k_xa}{2} \in \{0,\pi\}
+\end{equation}\]</span></p>
+<p>while the minimum of the set <span
+class="math inline">\(E_{min_m}\)</span> across all bands, as <span
+class="math inline">\(m\)</span> is varied is obtained when the
+quadratic equation in <span class="math inline">\(\cos(\frac{\pi
+m}{N})\)</span> is minimized: <span
+class="math display">\[\begin{equation}
+\begin{split}
+    \partial_{\cos(\pi m/N)}f(k_x, m)\bigg|_{\frac{3k_xa}{2} \in
+\{0,\pi\}} &amp;= 0 \\
+    \implies \cos\bigg(\frac{\pi m}{N}\bigg) &amp;=
+-\frac{1}{2}\cos\bigg(\frac{3k_xa}{2}\bigg)\bigg|_{\frac{3k_xa}{2} \in
+\{0,\pi\}} \\
+    &amp;= \pm \frac{1}{2}
+\end{split}
+\end{equation}\]</span> which means <span
+class="math inline">\(\cos\bigg(\frac{\pi m}{N}\bigg)\)</span> needs to
+be as close to <span class="math inline">\(\pm\frac{1}{2}\)</span> as
+possible. This is exactly possible whenever <span
+class="math inline">\(N = 3m\)</span>, then band-gap is exactly 0 and we
+call such a CNT metallic. Though in this article, we will consider only
+CNTs with a bandgap so let us restrict ourselves to when <span
+class="math inline">\(N=3m-1\)</span>, i.e <span
+class="math inline">\(N=8, 11, 14, 17\)</span> etc.</p>
+<p>Given a value of <span class="math inline">\(N\)</span>, <span
+class="math inline">\(m\)</span> will take values in the set <span
+class="math inline">\(\{0, 1, 2, \ldots, N-1\}\)</span>. Let <span
+class="math display">\[m_0 := \operatorname*{arg\,min}_{m} \left| m -
+\frac{N}{3} \right|.\]</span> The band-minima is then written as
+(pairing the value of <span class="math inline">\(m_0\)</span> with
+<span class="math inline">\(\frac{3k_x a}{2} = \pi\)</span>): <span
+class="math display">\[\begin{equation}
+    E_g = 2t_0\sqrt{1-4\cos\bigg{(}\frac{\pi
+m_0}{N}\bigg{)}+4\cos^2\bigg{(}\frac{\pi m_0}{N}\bigg{)} } .
+\end{equation}\]</span></p>
+<h3 id="analytial-expression-for-density-of-states">Analytial expression
+for Density of States</h3>
+<p>Good point to obtain an expression for the density of states near the
+band-minimum. First, we need to show the following approximation holds
+near the band-minimum:</p>
+<p><span class="math display">\[\begin{equation}
+    \frac{d}{dE} \bigg{(}\frac{3k_x a}{2}\bigg{)} \approx
+\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span></p>
+<p>What do we mean by DoS? We mean Density of States at energy E per
+unit length, so that it is an intensive quantity. The DoS can be written
+for the case of 1D CNT as: <span class="math display">\[\begin{equation}
+    D(E) = \frac{1}{L}\frac{ \text{\# States in [k, k+dk]}}{dk(E)}
+\end{equation}\]</span> We already know dk(E) from above</p>
+<p>k-states are spaced uniformly with space <span
+class="math inline">\(d \bigg{(}\frac{3k_x a}{2}\bigg{)} = \frac{3\pi
+a}{L}\)</span></p>
+<p>Now we compute D(E) in steps. First we find the numerator ie # states
+in [k, k+dk]: <span class="math display">\[\begin{equation}
+     \frac{1}{ \frac{3\pi a}{L}}\frac{d}{dE} \bigg{(}\frac{3k_x a}{2}dE
+\bigg{)} \approx \frac{1}{ \frac{3\pi
+a}{L}}\frac{|E|dE}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span> Dividing by L gives: <span
+class="math display">\[\begin{equation}
+     D(E) \approx \frac{1}{3\pi a}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span> But this equation is not correct since there is
+a degeneracy of 8: Degeneracy of 2 because of spins, degeneracy of 2
+because there are two bands and each band has further even symmetry, so
+two branches to each band. Hence the DOS is actually given as: <span
+class="math display">\[\begin{equation}
+     D(E) \approx \frac{8}{3\pi a}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span></p>
+<p>(Need to prove there are two bands and that the only the lowest band
+comes into picture. This can be verified with the second level of
+approximation itself)</p>
+<h2 id="surface-charge-density">Surface Charge Density</h2>
+<p>Each state has its charge distributed uniformly across the cylinder.
+So that the surface charge density is given as (remember DoS is already
+per unit length, so that’s automatically taken care of while computing
+surface charge density) <span class="math display">\[\begin{equation}
+    \sigma = \frac{q}{2\pi R}\int_{E_1}^{E_2} D(E)f(E)dE
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+    \sigma = \int_{E_1}^{E_2} \frac{8q}{6\pi^2 R
+a}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}f(E)dE
+\end{equation}\]</span> From geometry, we know the relation: <span
+class="math display">\[\begin{equation}
+    2R\sin\frac{\pi}{N} = \sqrt{3}a
+\end{equation}\]</span> For big enough N, we can linearize sin function
+and this gives: <span class="math display">\[\begin{equation}
+    \sigma = \int_{E_1}^{E_2} \frac{8q}{3\sqrt{3}\pi  a^2
+N}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}f(E)dE
+\end{equation}\]</span> This agrees with the expression we have in <span
+class="citation" data-cites="leonardPropertiesShortChannel2006">(Leonard
+and Stewart 2006)</span> subject to the above mentioned constraints.</p>
+<p>Let us find the charge before (<span
+class="math inline">\(\rho_i\)</span>) and after (<span
+class="math inline">\(\rho_f\)</span>) thermal equilibrium is attained.
+Assume <span class="math inline">\(D(E)\)</span> is the density of
+states at energy E, <span class="math inline">\(f(E, E_f)\)</span> is
+the Fermi-Dirac distribution occupancy factor at energy E given fermi
+level energy at <span class="math inline">\(E_f\)</span> and after
+equilibrium has been attained, the CNT sits at an electrostatic
+potential of <span class="math inline">\(V_0\)</span>, then:</p>
+<p><span class="math display">\[\begin{align}
+      \rho_f &amp;= \int_{-\infty}^{\infty} D(E+V_0)f(E,E_f)\, dE \\
+      \rho_i &amp;= \int_{-\infty}^{\infty} D(E)f(E, 0)\, dE
+\end{align}\]</span></p>
+<p>Here we assumed that before the two materials are brought close, the
+CNT has <span class="math inline">\(E_f=0\)</span> and after the CNT is
+charged to potential <span class="math inline">\(V_0\)</span>, all the
+energy levels rise by <span class="math inline">\(V_0\)</span>. The net
+charge accumulated by the CNT is then:</p>
+<p><span class="math display">\[\begin{align}
+      \delta \rho &amp;= \rho_f-\rho_i \notag\\
+      &amp;= \int_{-\infty}^{\infty} D(E+V_0)f(E,E_f)\, dE -
+\int_{-\infty}^{\infty} D(E)f(E, 0)\, dE \notag\\
+      &amp;= \int_{-\infty}^{\infty}
+D(E)\bigl(f(E-V_0,E_f)-f(E,0)\bigr)\, dE
+\end{align}\]</span></p>
+<p>This equation represents the total charge as the sum of charge
+accumulated at each state in CNT due to the change of fermi level as
+seen by that state. Let us look now at the behaviour of the part of
+integrand made up of fermi functions:</p>
+<p><span class="math display">\[\begin{eqnarray}
+f(E-V_0,E_f)-f(E,0) = 0 \quad \forall E\geq \max(E_f+V_0, 0)
++4\frac{kT}{q} \quad\text{and}\quad E\leq \min(E_f+V_0, 0) -
+4\frac{kT}{q}
+\end{eqnarray}\]</span></p>
+<h2 id="code">Code</h2>
+<p>Check my github page</p>
+<h2 id="references">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-netoElectronicPropertiesGraphene2009" class="csl-entry"
+role="listitem">
+Castro Neto, A. H., F. Guinea, N. M. R. Peres, K. S. Novoselov, and A.
+K. Geim. 2009. <span>“<span class="nocase">The electronic properties of
+graphene</span>.”</span> <em>Reviews of Modern Physics</em> 81 (1):
+109–62. <a
+href="https://doi.org/10.1103/RevModPhys.81.109">https://doi.org/10.1103/RevModPhys.81.109</a>.
+</div>
+<div id="ref-leonardPropertiesShortChannel2006" class="csl-entry"
+role="listitem">
+Leonard, Francois, and Derek A. Stewart. 2006. <span>“<span
+class="nocase">Properties of short channel ballistic carbon nanotube
+transistors with ohmic contacts</span>.”</span> <em>Nanotechnology</em>
+17 (18): 4699–705. <a
+href="https://doi.org/10.1088/0957-4484/17/18/029">https://doi.org/10.1088/0957-4484/17/18/029</a>.
+</div>
+</div>
+
+
+  </article>
+
+</main>
+
+<footer class="foot">
+  <nav class="social">
+    <a href="https://github.com/ShlokVaibhav" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+    <a href="https://www.linkedin.com/in/shlokvaibhav/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="https://shlokvaibhav.substack.com/" aria-label="Substack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+    <a href="https://x.com/ShlokVaibhav" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+    <a href="mailto:shlokvaibhav2000@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+  </nav>
+  <span class="colophon">© 2026 Shlok Vaibhav</span>
+</footer>
+
+</body>
+</html>
