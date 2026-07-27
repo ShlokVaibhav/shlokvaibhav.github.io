@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>On Quantization Noise — Shlok Vaibhav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .paper { line-height: 1.65; }
+  .paper h2 { margin-top: 2.2rem; }
+  .paper h3 { margin-top: 1.4rem; }
+  .paper img { max-width: 100%; height: auto; }
+  .paper blockquote { border-left: 3px solid rgba(0,0,0,.18); margin: 1.2rem 0; padding-left: 1rem; opacity: .85; }
+  .paper mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; padding: .2rem 0; }
+  .doclinks { margin: .6rem 0 1.5rem; opacity: .85; }
+</style>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <a class="wordmark" href="index.html">Shlok Vaibhav</a>
+  <nav>
+    <a href="notes.html">Tech Digest</a>
+    <a href="research.html">Research</a>
+    <a href="cv.html">CV</a>
+    <a href="books.html">Books</a>
+    <a href="writing.html">Writing</a>
+    <a href="hobbies.html">Hobbies</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="page-head">
+    <h1>On Quantization Noise</h1>
+    <p class="doclinks"><a href="https://github.com/ShlokVaibhav/Panjwa/blob/main/ADCs/OnQuantization.md">Source (markdown) →</a></p>
+  </section>
+  <article class="paper">
+<p>I’ve been reading Marcel Pelgrom’s insightful monograph “Analog to
+Digital Conversion” and loved his treatment of quantization error and
+various mental tricks to simplify it. I have not produced any of his
+tables or figures but given page details for reader to locate them
+exactly.</p>
+<p>I will comment on</p>
+<ol type="1">
+<li>Commutation of quantization and sampling (Novel idea)</li>
+<li>Autocorrelation of Quantization error (Pelgrom’s First
+assumption)</li>
+<li>PSD of quantization error (Pelgrom’s Second assumption)</li>
+<li>Robustness (Future work)</li>
+</ol>
+<h2 id="commutation-of-quantization-and-sampling-operators">1.
+Commutation of Quantization and Sampling operators</h2>
+<p>(I’m using the term operator and not the term operation)</p>
+<p>On page 428, he remarks while the mainstream ADCs are sample-and-hold
+first and then quantize, the opposite architecture, ie, level-crossing
+converters that quantize continuously in time are also in existence.</p>
+<p>This seems trivially true the way sample-and-hold operation is
+described in textbooks - literally freeze the signal till comparison,
+the freezeing itself is quantization to some analog level. However, it
+will be interesting to see the limitations of this equivalence in
+cutting-edge GSps ADCs, a topic for a later article!</p>
+<p>For now, we just keep this property in mind.</p>
+<h2 id="quantization-error-as-noise">2. Quantization error as Noise</h2>
+<p>I think this is the single most interesting and unique aspect of
+ADCs, there’s a new creature discovered - the quantization error - but
+it is not the signal, even though it decends from it, it is not quite
+noise either though it looks like it at times. So now the engineer must
+also wield taxonomy!</p>
+<p>Let us look at some characteristics of quantization error first</p>
+<h3 id="a.-autocorrelation">2a. Autocorrelation</h3>
+<p>On page 431, Pelgrom is clearly in a mood of following pedagogy of
+thermodynamics (which he cites later) and stats mech (Which is not doing
+exactly great these days!)</p>
+<p>The first assumption is to assume the autocorrelation of quantization
+creature is a dirac-delta in time. However, he misses to remark that
+while the thermal noise is also ergodic which allows a single
+realization of it to have the desired autocorrelation, quantization
+error is clearly not:</p>
+<p>I can always create a particular input signal to realize any
+correlation function for one particular quantization trajectory. And i
+think this is why standards like IEEE 1241-2023 stick to few classes of
+signals for characterizing commercial ADCs, which often requires the
+end-user to do his own characterization based on his class of input
+signals (No one created a standard to measure thermal noise simply
+because you cannot shape its autocorrelation)</p>
+<p>I would request Pelgrom to add another row on ergodicity to table
+9.1</p>
+<h3 id="a-small-question">A small question</h3>
+<p>I also have a question for the reader - usually we put anti-aliasing
+filters before ADCs or even the circuitry-limited inherent low-pass
+filtering (<span class="math inline">\(kT/C\)</span>), does a thermal
+noise realization that is effectively being integrated by an RC filter,
+still memoryless and dirac-delta correlated??</p>
+<h3 id="b.-psd">2b. PSD</h3>
+<p>The quantization error can be written in closed form as <a
+href="https://ieeexplore.ieee.org/document/1164729">The intermodulation
+and distortion due to quantization of sinusoids</a>:</p>
+<p><span class="math display">\[Q(t) = \frac{1}{2}-\sum_{n=1}^{\infty}
+\frac{1}{n\pi} \sin(2n\pi x(t))\]</span></p>
+<p>(This is simply the fourier expansion of sawtooth as noted on the
+wiki page for ceiling and floor function)</p>
+<p>Note that while <span class="math inline">\(x(t)\)</span> may be
+band-limited to nyquist frequency, as the above equation shows,
+quantization error is clearly not because of non-linear sinusoidals
+being added (Infact, for the 1-bit case discussed in exact in Pelgrom’s
+book shows the higher harmonics appearing clearly)</p>
+<p>So how do we then comment on PSD?</p>
+<p>After sampling, clearly the higher nyquist zones of <span
+class="math inline">\(Q(t)\)</span> will fold into the first and we know
+that the autocorrelation was assumed to be a dirac-delta so in frequency
+domain, so <span class="math inline">\(Q(f)= c\)</span>, some constant
+even after folding.</p>
+<p>Now how do we estimate this constant <span
+class="math inline">\(c\)</span>? Note that <strong>quantization error
+cannot have more energy than the signal</strong>, so <span
+class="math inline">\(c\)</span> is a finite constant and since
+quantization error can be conceived as a sum of pulses of width <span
+class="math inline">\(T_s\)</span> multiplied a level-modulated signal
+(analogous to how the effect of sample-and-hold is analyzed):</p>
+<p><span class="math display">\[Q(t) = \sum_{n=-\infty}^{n=\infty}
+(x(t)-x(nT_s))[u(t-nT_s)-u(t-(n-1)T_s)]\]</span></p>
+<p>(Here <span class="math inline">\(u(t)\)</span> is the step function)
+In frequency domain, that’s sum of a series of convolutions of sinc with
+a band-limited signals, at any rate, since sinc pulse bandwidth is first
+few nyquist zones, each quantization noise realization is going to be
+actually band-limited, despite the zero-correlation assumption made.</p>
+<h3 id="thermal-noise-relegated-down-to-quantization-error">Thermal
+noise relegated down to quantization error</h3>
+<p>What was the point of this detour in last 2 paragraphs?</p>
+<p>It was to show the equivalence of quantization noise with the thermal
+noise that passes through an external or even the circuitry-limited
+internal low-pass filtering (<span class="math inline">\(kT/C\)</span>),
+both have effectively a PSD that dies off in few nyquist zones and
+neither has a correlation that is dirac-delta anymore. (Though thermal
+noise is still ergodic)</p>
+<p>### Quantization PSD from time domain</p>
+<p>Since frequency-domain didn’t answer our query of determining <span
+class="math inline">\(c\)</span>, let us try to work in time-domain, and
+look at the bold-highlight above, we know that quantization noise lies
+in <span class="math inline">\([-A_{LSB}/2, A_{LSB}/2]\)</span> always
+and takes some distribution.</p>
+<p>We invoke the poor-man’s hypothesis, or what Pelgorm calls his second
+assumption -</p>
+<p><strong>Equal a priori probability</strong></p>
+<p>In absence of any reason to assume otherwise, <span
+class="math inline">\(Q(t)\)</span> takes a uniform distribution over
+<span class="math inline">\([-A_{LSB}/2, A_{LSB}/2]\)</span> This duly
+gives :</p>
+<p><span class="math display">\[c = \frac{A_{LSB}^2}{12f_s}\]</span></p>
+<p>(Note that as in statistical mechanics, this assumption is totally
+natural when averaged over all possible realizations but for a single
+realization which mixed-signals must deal with, often without the
+macroscopic helping hand, it’s unsatisfying)</p>
+<p>## 3. Robustness</p>
+<p>This is the most beautiful move by Pelgrom, which separates the
+master from the reader: &gt; This assumption does not take any specific
+signal properties into account, neither will the result be sensitive to
+small changes in the properties of the signal.</p>
+<p>This is the landmark field of “Robust Statistics” (Refer to the book
+by Huber and Ronchetti), yes i assumed a uniform distribution but
+experience shows this is a very robust estimator and even if you were to
+work out an exact theory, answers won’t change much. As empiricist this
+statement is, he demonstrates it in table 9.2 by producing the
+simualated vs estimated SQNR for a corner case.</p>
+<p>There is also another guardrail put by Pelgromm, he shows us how to
+analyze things when signal really becomes too rebellious - a pure sine
+wave touching the rails as well as when number of bits are too low -
+1.</p>
+<p>This exact analysis coupled with the generic basket that catches
+everything else, I felt very well-equipped to deal with any signal that
+shows up at my ADC!</p>
+  </article>
+</main>
+
+<footer class="foot">
+  <nav class="social">
+    <a href="https://github.com/ShlokVaibhav" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+    <a href="https://www.linkedin.com/in/shlokvaibhav/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="https://shlokvaibhav.substack.com/" aria-label="Substack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+    <a href="https://x.com/ShlokVaibhav" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+    <a href="mailto:shlokvaibhav2000@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+  </nav>
+  <span class="colophon">© 2026 Shlok Vaibhav</span>
+</footer>
+
+</body>
+</html>
