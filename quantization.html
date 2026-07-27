@@ -137,7 +137,8 @@ internal low-pass filtering (<span class="math inline">\(kT/C\)</span>),
 both have effectively a PSD that dies off in few nyquist zones and
 neither has a correlation that is dirac-delta anymore. (Though thermal
 noise is still ergodic)</p>
-<p>### Quantization PSD from time domain</p>
+<h3 id="quantization-psd-from-time-domain">Quantization PSD from time
+domain</h3>
 <p>Since frequency-domain didn’t answer our query of determining <span
 class="math inline">\(c\)</span>, let us try to work in time-domain, and
 look at the bold-highlight above, we know that quantization noise lies
@@ -155,7 +156,7 @@ gives :</p>
 natural when averaged over all possible realizations but for a single
 realization which mixed-signals must deal with, often without the
 macroscopic helping hand, it’s unsatisfying)</p>
-<p>## 3. Robustness</p>
+<h2 id="robustness">3. Robustness</h2>
 <p>This is the most beautiful move by Pelgrom, which separates the
 master from the reader: &gt; This assumption does not take any specific
 signal properties into account, neither will the result be sensitive to
@@ -165,7 +166,11 @@ by Huber and Ronchetti), yes i assumed a uniform distribution but
 experience shows this is a very robust estimator and even if you were to
 work out an exact theory, answers won’t change much. As empiricist this
 statement is, he demonstrates it in table 9.2 by producing the
-simualated vs estimated SQNR for a corner case.</p>
+simualated vs estimated SQNR for a corner case. And in-fact, it is very
+robust, for if i were to assume that instead of being uniformly
+distributed, my noise is always <span class="math inline">\(\pm
+\frac{A_{LSB}}{2}\)</span>, the resulting PSD would be 70% larger that
+what we estimated - off yes but not ugly.</p>
 <p>There is also another guardrail put by Pelgromm, he shows us how to
 analyze things when signal really becomes too rebellious - a pure sine
 wave touching the rails as well as when number of bits are too low -
