@@ -67,10 +67,12 @@ data-cites="netoElectronicPropertiesGraphene2009">(Castro Neto et al.
 2009)</span></figcaption>
 </figure>
 <p>Given the above coordinate choice for graphene unit cell, the band
-structure of a (N,0) CNT, obtained from the tight-binding model of
-graphene <span class="citation"
+structure of a (N,0) CNT (Zig-Zag CNT), obtained from the tight-binding
+model of graphene <span class="citation"
 data-cites="netoElectronicPropertiesGraphene2009">(Castro Neto et al.
-2009)</span>, is expressed as:</p>
+2009)</span>, is expressed as (Obtained by putting the quantization
+condition <span class="math inline">\(N a k_y = 2\pi m\)</span> in the
+graphene band structure):</p>
 <p><span class="math display">\[\begin{equation}
 \label{eq:band-structure}
     E = \pm t_0 \sqrt{f(k_x, m)} = \pm t_0
@@ -78,9 +80,22 @@ data-cites="netoElectronicPropertiesGraphene2009">(Castro Neto et al.
 m}{N}\bigg{)}+4\cos^2\bigg{(}\frac{\pi m}{N}\bigg{)} }
 \end{equation}\]</span></p>
 <p>where <span class="math inline">\(t_0 = 2.5eV\)</span> is the
-tight-binding coupling constant and m is an index that runs from <span
-class="math inline">\(0\)</span> to <span
-class="math inline">\(N-1\)</span>.</p>
+tight-binding coupling constant, where <span
+class="math inline">\(a\)</span> is the lattice constant and m is an
+index that runs from <span class="math inline">\(0\)</span> to <span
+class="math inline">\(N-1\)</span>. A thorough derivation can be found
+in <span class="citation"
+data-cites="schonenbergerBandstructureGrapheneCarbon2015">(Schönenberger
+2015)</span>, although with axes rotated.</p>
+<figure id="fig:cnt-band-structure" data-latex-placement="ht">
+<img src="papers/cnt-band-structure-n11.png" style="width:80.0%" />
+<figcaption>Electronic band structure of an <span
+class="math inline">\(N=11\)</span> zig-zag CNT computed from <a
+href="#eq:band-structure" data-reference-type="eqref"
+data-reference="eq:band-structure">[eq:band-structure]</a>, with each
+curve labelled by its sub-band index <span class="math inline">\(m = 0,
+1, \ldots, N-1\)</span>.</figcaption>
+</figure>
 <h3 id="sec:bandgap">Analytical expression for band-gap</h3>
 <p>CNT is one of those nice systems where the band-gap can be expressed
 analytically. In \(\eqref{eq:band-structure}\), consider the
@@ -112,14 +127,17 @@ class="math inline">\(N = 3m\)</span>, then band-gap is exactly 0 and we
 call such a CNT metallic. Though in this article, we will consider only
 CNTs with a bandgap so let us restrict ourselves to when <span
 class="math inline">\(N=3m-1\)</span>, i.e <span
-class="math inline">\(N=8, 11, 14, 17\)</span> etc.</p>
+class="math inline">\(N=8, 11, 14, 17\)</span> etc. A representative
+band-diagram is shown for <span class="math inline">\(N=11\)</span>
+below:</p>
 <p>Given a value of <span class="math inline">\(N\)</span>, <span
 class="math inline">\(m\)</span> will take values in the set <span
 class="math inline">\(\{0, 1, 2, \ldots, N-1\}\)</span>. Let <span
-class="math display">\[m_0 := \operatorname*{arg\,min}_{m} \left| m -
-\frac{N}{3} \right|.\]</span> The band-minima is then written as
-(pairing the value of <span class="math inline">\(m_0\)</span> with
-<span class="math inline">\(\frac{3k_x a}{2} = \pi\)</span>): <span
+class="math display">\[m_0 := \operatorname*{arg\,min}_{m} \left\{\left|
+m - \frac{N}{3} \right|, \left| m - \frac{2N}{3}
+\right|\right\}.\]</span> The band-minima is then written as (pairing
+the value of <span class="math inline">\(m_0\)</span> with <span
+class="math inline">\(\frac{3k_x a}{2} = \pi /0\)</span>): <span
 class="math display">\[\begin{equation}
 \label{eq:bandgap}
     E_g = 2t_0\sqrt{1-4\cos\bigg{(}\frac{\pi
@@ -171,6 +189,81 @@ enough N, we can approximate the above equation as:</p>
 <p>\(\eqref{eq:dkx-dE}\) follows from
 differentiating \(\eqref{eq:kx-of-E}\) with respect to <span
 class="math inline">\(E\)</span>.</p>
+<p>From here, the calculation of density of states is straightforward.
+Density of States is defined as:</p>
+<p><span class="math display">\[\begin{equation}
+    D(E) = \frac{1}{L}\frac{ \text{\# States in [E, E+ dE]}}{dE}
+\end{equation}\]</span></p>
+<p>For a periodic system, this means counting the number of values of
+<span class="math inline">\(k_x\)</span> whose energy lies in the range
+<span class="math inline">\([E, E+dE]\)</span> i.e. <span
+class="math inline">\(dk(E)\)</span>. We already know <span
+class="math inline">\(dk(E)\)</span> from  \(\eqref{eq:dkx-dE}\).</p>
+<p>k-states are spaced uniformly with space <span
+class="math display">\[\begin{equation}
+\label{eq:k-spacing}
+    d \bigg{(}\frac{3k_x a}{2}\bigg{)} = \frac{3\pi a}{L}
+\end{equation}\]</span></p>
+<p>Now we compute <span class="math inline">\(D(E)\)</span> in steps,
+first we find the numerator ie # states in [k, k+dk]: <span
+class="math display">\[\begin{equation}
+    dk(E) = \frac{d}{dE} \bigg{(}\frac{3k_x a}{2}dE \bigg{)} \approx
+\frac{|E|dE}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span></p>
+<p>The number of states in this range of <span
+class="math inline">\(dk\)</span> is given by dividing above equation by
+\(\eqref{eq:k-spacing}\) <span
+class="math display">\[\begin{equation}
+     \frac{1}{ \frac{3\pi a}{L}}\frac{d}{dE} \bigg{(}\frac{3k_x a}{2}dE
+\bigg{)} \approx \frac{1}{ \frac{3\pi
+a}{L}}\frac{|E|dE}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span> Dividing by L gives: <span
+class="math display">\[\begin{equation}
+     D(E) \approx \frac{1}{3\pi a}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span></p>
+<h4 id="degeneracy">Degeneracy</h4>
+<p>But the equation above is not yet correct, since there is an
+eight-fold (<span class="math inline">\(2 \times 2 \times 2\)</span>)
+degeneracy in a CNT:</p>
+<ol>
+<li><p>In \(\eqref{eq:band-structure}\), <span
+class="math inline">\((k_x, m)\)</span> and <span
+class="math inline">\((-k_x, N-m)\)</span> give the same energy (a
+factor of <span class="math inline">\(2\)</span>).</p></li>
+<li><p>Electron spin takes two values (a factor of <span
+class="math inline">\(2\)</span>).</p></li>
+<li><p>Each band is symmetric about its minimum, and our expression
+considered only a single branch of the expansion around the band-minimum
+(a factor of <span class="math inline">\(2\)</span>).</p></li>
+</ol>
+<p>The last degeneracy can also be seen in the figure 2 in Introduction
+section. The final Density of States is then given as: <span
+class="math display">\[\begin{equation}
+     D(E) \approx \frac{8}{3\pi a}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}
+\end{equation}\]</span></p>
+<h4 id="verification">Verification</h4>
+<p>Let us derive the surface charge density expression Each state has
+its charge distributed uniformly across the cylinder. So that the
+surface charge density is given as (remember DoS is already per unit
+length, so we just need to divide by the circumference of the cylinder
+while computing surface charge density): <span
+class="math display">\[\begin{equation}
+    \sigma = \frac{q}{2\pi R}\int_{E_1}^{E_2} D(E)f(E)dE
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+    \sigma = \int_{E_1}^{E_2} \frac{8q}{6\pi^2 R
+a}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}f(E)dE
+\end{equation}\]</span> From geometry, we know the relation: <span
+class="math display">\[\begin{equation}
+    2R\sin\frac{\pi}{N} = \sqrt{3}a
+\end{equation}\]</span> For big enough N, we can linearize sin function
+and this gives: <span class="math display">\[\begin{equation}
+    \sigma = \int_{E_1}^{E_2} \frac{8q}{3\sqrt{3}\pi  a^2
+N}\frac{|E|}{t_0\sqrt{E^2-(E_g/2)^2}}f(E)dE
+\end{equation}\]</span> This agrees with the expression we have in Eq.
+15 of  <span class="citation"
+data-cites="leonardPropertiesShortChannel2006">(Leonard and Stewart
+2006)</span></p>
 <h2 class="unnumbered" id="bibliography">References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent"
 role="list">
@@ -189,6 +282,13 @@ class="nocase">Properties of short channel ballistic carbon nanotube
 transistors with ohmic contacts</span>.”</span> <em>Nanotechnology</em>
 17 (18): 4699–705. <a
 href="https://doi.org/10.1088/0957-4484/17/18/029">https://doi.org/10.1088/0957-4484/17/18/029</a>.
+</div>
+<div id="ref-schonenbergerBandstructureGrapheneCarbon2015"
+class="csl-entry" role="listitem">
+Schönenberger, Christian. 2015. <em><span class="nocase">Bandstructure
+of Graphene and Carbon Nanotubes: An Exercise in Condensed Matter
+Physics</span></em>. Lecture notes, Nanoelectronics Group, University of
+Basel.
 </div>
 </div>
 
