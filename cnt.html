@@ -22,6 +22,9 @@
   .csl-bib-body { margin-top: .6rem; }
   .csl-entry { margin: .6rem 0; padding-left: 1.4rem; text-indent: -1.4rem; }
   .doclinks { margin: 1rem 0 2rem; opacity: .85; }
+  .tune { margin: .2rem 0 1.6rem; }
+  .tune button { font: inherit; cursor: pointer; padding: .35rem .9rem; border: 1px solid rgba(0,0,0,.28); border-radius: 5px; background: transparent; color: inherit; opacity: .85; }
+  .tune button:hover { opacity: 1; border-color: rgba(0,0,0,.5); }
 </style>
 <script>window.MathJax = { tex: { tags: 'ams' } };</script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -48,7 +51,7 @@
 <div class="abstract">
 <div class="abstract-title">Abstract</div>
 <p>In this tutorial, we derive analytically the density of states for a
-CNT tube that matches the expression in  <span class="citation"
+CNT that matches the expression in  <span class="citation"
 data-cites="leonardPropertiesShortChannel2006">(Leonard and Stewart
 2006)</span>. This tutorial is intended for students working with CNTs
 for the first time and fills a gap in the literature where the
@@ -56,6 +59,13 @@ derivation of DOS is not explicitly shown.</p>
 </div>
 </header>
 <p class="doclinks"><a href="https://github.com/ShlokVaibhav/Panjwa/blob/main/CNT%20Paper/CNT.pdf">PDF</a> &nbsp;·&nbsp; <a href="https://github.com/ShlokVaibhav/Panjwa/tree/main/CNT%20Paper">LaTeX source</a></p>
+<div class="tune">
+  <button id="tune-btn" type="button">▶ Laufet Brüder eure Bahn!</button>
+  <audio id="tune-audio" src="media/eurebahn.m4a" preload="none"></audio>
+</div>
+<script>
+(function(){var b=document.getElementById("tune-btn"),a=document.getElementById("tune-audio"),P="▶ Laufet Brüder eure Bahn!",S="◼ Halt!";b.addEventListener("click",function(){if(a.paused){a.currentTime=0;a.play();b.textContent=S;}else{a.pause();b.textContent=P;}});a.addEventListener("ended",function(){b.textContent=P;});})();
+</script>
 <article class="paper">
 
 <h2 id="introduction">Introduction</h2>
