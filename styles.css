@@ -17,7 +17,10 @@
     11. CV ..................... .cv-row two-column rows + download button
     12. Page head ............. inner-page titles
     13. Footer ................ .foot social links
-    14. Responsive ............ single mobile breakpoint
+    14. Hobby show-more ....... collapsible hobby sections
+    15. Book reviews .......... long-form review pages
+    16. Article pages ......... generated technical-paper pages
+    17. Responsive ............ single mobile breakpoint
    ========================================================================== */
 
 
@@ -34,6 +37,8 @@
   --accent:     oklch(0.50 0.085 222);    /* links                    */
   --accent-ink: oklch(0.42 0.090 222);    /* link hover / emphasis    */
   --accent-bg:  oklch(0.955 0.020 222);   /* button hover fill        */
+  --control-border: rgba(0, 0, 0, 0.28);  /* compact media controls   */
+  --control-hover:  rgba(0, 0, 0, 0.50);  /* media-control hover      */
 
   --serif: "EB Garamond", Garamond, "Adobe Garamond Pro", Georgia, "Times New Roman", serif;
   --label: ui-monospace, "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace;
@@ -443,7 +448,7 @@ a:hover {
 .hobby-more > .linklist { margin-top: 20px; }
 
 
-/* 14b. BOOK REVIEW ========================================================= */
+/* 15. BOOK REVIEW ========================================================== */
 .breadcrumb {
   margin: 40px 0 0;
   font-family: var(--label);
@@ -468,7 +473,50 @@ a:hover {
 .review-prose .loading { color: var(--faint); font-style: italic; }
 
 
-/* 16. RESPONSIVE (single breakpoint) ======================================= */
+/* 16. ARTICLE PAGES ======================================================== */
+#title-block-header { margin-top: 52px; line-height: 1.6; }
+#title-block-header .title { margin-bottom: .2rem; }
+#title-block-header .author,
+#title-block-header .date { margin: 0; color: var(--muted); }
+
+.doclinks { margin: 1rem 0; color: var(--muted); }
+.tune { margin: .2rem 0 1.6rem; }
+.tune button {
+  padding: .35rem .9rem;
+  border: 1px solid var(--control-border);
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  opacity: .85;
+}
+.tune button:hover { border-color: var(--control-hover); opacity: 1; }
+
+.paper { line-height: 1.6; }
+.paper h2 { margin-top: 2.2rem; }
+.paper h3 { margin-top: 1.4rem; }
+.paper figure { margin: 2rem auto; text-align: center; }
+.paper figure img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.paper figcaption { margin-top: .5rem; font-size: .9rem; color: var(--muted); }
+.paper math[display="block"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+
+.display-equation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .75rem;
+  margin: 1em 0;
+}
+.equation-math { min-width: 0; overflow-x: auto; text-align: center; }
+.equation-math math[display="block"] { margin: 0 auto; }
+.equation-number { white-space: nowrap; }
+
+.csl-bib-body { margin-top: .6rem; }
+.csl-entry { margin: .6rem 0; padding-left: 1.4rem; text-indent: -1.4rem; }
+
+
+/* 17. RESPONSIVE (single breakpoint) ======================================= */
 @media (max-width: 620px) {
   body { font-size: 18px; }
   .cv-row { grid-template-columns: 1fr; gap: 4px; }

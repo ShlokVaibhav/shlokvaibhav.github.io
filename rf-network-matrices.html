@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>On S-parameters and ABCD matrix — Shlok Vaibhav</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site">
+  <a class="wordmark" href="index.html">Shlok Vaibhav</a>
+  <nav>
+    <a href="notes.html">Tech Digest</a>
+    <a href="research.html">Research</a>
+    <a href="cv.html">CV</a>
+    <a href="books.html">Books</a>
+    <a href="writing.html">Writing</a>
+    <a href="hobbies.html">Hobbies</a>
+  </nav>
+</header>
+
+<main class="wrap">
+<header id="title-block-header">
+<h1 class="title">On S-parameters and ABCD matrix</h1>
+<p class="author">Shlok Vaibhav Singh</p>
+<p class="date">24/8/2026</p>
+</header>
+<p class="doclinks"><a href="https://github.com/ShlokVaibhav/Panjwa/blob/main/Comments%20On%20RF%20Network%20Matrices/RF_Network_Matrices.pdf">PDF</a> &nbsp;·&nbsp; <a href="https://github.com/ShlokVaibhav/Panjwa/tree/main/Comments%20On%20RF%20Network%20Matrices">LaTeX source</a></p>
+<div class="tune">
+  <button id="tune-btn" type="button">▶ Laufet Brüder eure Bahn!</button>
+  <audio id="tune-audio" src="media/eurebahn.m4a" preload="none"></audio>
+</div>
+<script>
+(function(){var b=document.getElementById("tune-btn"),a=document.getElementById("tune-audio"),P="▶ Laufet Brüder eure Bahn!",S="◼ Halt!";b.addEventListener("click",function(){if(a.paused){a.currentTime=0;a.play();b.textContent=S;}else{a.pause();b.textContent=P;}});a.addEventListener("ended",function(){b.textContent=P;});})();
+</script>
+<article class="paper">
+<h2 id="abcd-as-a-reaction-to-s-parameters">ABCD as a reaction to
+S-parameters</h2>
+<p>RF network matrices admit atleast four representations, namely, the
+impedance matrix, the admittance matrix, the scattering matrix and the
+ABCD matrix (For 2-port networks). <span class="citation"
+data-cites="pozar2011microwave">(<a href="#ref-pozar2011microwave"
+role="doc-biblioref">Pozar 2011</a>)</span></p>
+<p>Out of these, the scattering matrix and ABCD are most common. Here
+are some comments on them:</p>
+<p>Recently I had been reading the thesis of Pawan Khanna <span
+class="citation" data-cites="khanna2023thesis">(<a
+href="#ref-khanna2023thesis" role="doc-biblioref">Khanna
+2023</a>)</span> and their treatment of the artificial transmission line
+starts with ABCD parameters. For someone new like me into the field, it
+perplexed me as to why not the S-parameters??</p>
+<p>I got a hint from Pozar's book, cascading!</p>
+<p>An artificial transmission line is a 2-port network and the
+literature designs for a unit-network, which is then repeated multiple
+times to create a true-time delay transmission line.</p>
+<p>If S-parameters are to be used, the cascaded S-parameters are given
+by Redheffer Star Product <span class="citation"
+data-cites="redheffer1962relation">(<a href="#ref-redheffer1962relation"
+role="doc-biblioref">Redheffer 1962</a>)</span> , not at all convenient
+for analytical work (Trust me, S-parameters are all I had during my
+masters)</p>
+<p>The entire invention of ABCD parameters is to make the cascade
+analysis easy. So for a series of N-transmission line elements, ABCD
+parameters ar just N matrix multiplication followed by a single
+conversion to S-parameters, unlike performing N Redheffer star products.
+Not only is that a computational headache, but also the place where
+anlysis goes to die.</p>
+<p>Yet, what makes ABCD parameter amenable to cascade?? Let us look at
+representative S-parameters and ABCD parameters for a 2-port
+network:</p>
+<figure data-latex-placement="htbp">
+<img src="papers/rf-network-two-port-cascade.png" />
+</figure>
+<p><span class="display-equation"><span class="equation-math"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>1</mn><mo>−</mo></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>2</mn><mo>−</mo></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>11</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>12</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>21</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>22</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>1</mn><mo>+</mo></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>2</mn><mo>+</mo></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+\begin{bmatrix} V_1^- \\ V_2^- \end{bmatrix}
+= \begin{bmatrix}
+S_{11} &amp; S_{12} \\ S_{21} &amp; S_{22}
+\end{bmatrix}
+\begin{bmatrix} V_1^+ \\ V_2^+ \end{bmatrix}
+\end{equation}</annotation></semantics></math></span><span class="equation-number">(1)</span></span>
+<span class="display-equation"><span class="equation-math"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>V</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>I</mi><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><mi>A</mi></mtd><mtd columnalign="center" style="text-align: center"><mi>B</mi></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><mi>C</mi></mtd><mtd columnalign="center" style="text-align: center"><mi>D</mi></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>V</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>I</mi><mn>1</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+\begin{bmatrix} V_2 \\ I_2 \end{bmatrix}
+= \begin{bmatrix}
+A &amp; B \\ C &amp; D
+\end{bmatrix}
+\begin{bmatrix} V_1 \\ I_1 \end{bmatrix}
+\end{equation}</annotation></semantics></math></span><span class="equation-number">(2)</span></span></p>
+<p>And between Port-2 and Port-3:
+<span class="display-equation"><span class="equation-math"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>2</mn><mo>−</mo></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>3</mn><mo>−</mo></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>22</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>23</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>32</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>S</mi><mn>33</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>2</mn><mo>+</mo></msubsup></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msubsup><mi>V</mi><mn>3</mn><mo>+</mo></msubsup></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+\begin{bmatrix} V_2^- \\ V_3^- \end{bmatrix}
+= \begin{bmatrix}
+S_{22} &amp; S_{23} \\ S_{32} &amp; S_{33}
+\end{bmatrix}
+\begin{bmatrix} V_2^+ \\ V_3^+ \end{bmatrix}
+\end{equation}</annotation></semantics></math></span><span class="equation-number">(3)</span></span>
+<span class="display-equation"><span class="equation-math"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>V</mi><mn>3</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>I</mi><mn>3</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mo>=</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>A</mi><mn>2</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>B</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>C</mi><mn>2</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>D</mi><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow><mrow><mo stretchy="true" form="prefix">[</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>V</mi><mn>2</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>I</mi><mn>2</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">\begin{equation}
+\begin{bmatrix} V_3 \\ I_3 \end{bmatrix}
+= \begin{bmatrix}
+A_2 &amp; B_2 \\ C_2 &amp; D_2
+\end{bmatrix}
+\begin{bmatrix} V_2 \\ I_2 \end{bmatrix}
+\end{equation}</annotation></semantics></math></span><span class="equation-number">(4)</span></span></p>
+<p>After cascading, the only variables we care about are of Port-1 and
+Port-3. It is easy to see that we need to "substitute" for variables at
+Port-2, and we can see the ABCD matrix trivally does that for us:
+Equation (2) has already solved for Port-2 variables!</p>
+<p>Compare this to S-matrix which mixes variables at different ports and
+the Redheffer star product would have looked something like:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>⋆</mo><mi>B</mi><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mtable><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>B</mi><mn>11</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mo>−</mo><msub><mi>A</mi><mn>12</mn></msub><msub><mi>B</mi><mn>21</mn></msub><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><msub><mi>A</mi><mn>11</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>B</mi><mn>12</mn></msub><mo>+</mo><msub><mi>B</mi><mn>11</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mo>−</mo><msub><mi>A</mi><mn>12</mn></msub><msub><mi>B</mi><mn>21</mn></msub><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><msub><mi>A</mi><mn>12</mn></msub><msub><mi>B</mi><mn>22</mn></msub></mtd></mtr><mtr><mtd columnalign="center" style="text-align: center"><msub><mi>A</mi><mn>21</mn></msub><mo>+</mo><msub><mi>A</mi><mn>22</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mo>−</mo><msub><mi>B</mi><mn>21</mn></msub><msub><mi>A</mi><mn>12</mn></msub><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><msub><mi>B</mi><mn>21</mn></msub><msub><mi>A</mi><mn>11</mn></msub></mtd><mtd columnalign="center" style="text-align: center"><msub><mi>A</mi><mn>22</mn></msub><mo stretchy="false" form="prefix">(</mo><mi>I</mi><mo>−</mo><msub><mi>B</mi><mn>21</mn></msub><msub><mi>A</mi><mn>12</mn></msub><msup><mo stretchy="false" form="postfix">)</mo><mrow><mi>−</mi><mn>1</mn></mrow></msup><msub><mi>B</mi><mn>22</mn></msub></mtd></mtr></mtable><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">A \star B = \begin{pmatrix}
+B_{11}(I-A_{12}B_{21})^{-1}A_{11} &amp; B_{12}+B_{11}(I-A_{12}B_{21})^{-1}A_{12}B_{22} \\
+A_{21}+A_{22}(I-B_{21}A_{12})^{-1}B_{21}A_{11} &amp; A_{22}(I-B_{21}A_{12})^{-1}B_{22}
+\end{pmatrix}</annotation></semantics></math></p>
+<h3 id="in-defence-of-s-parameters">In Defence of S-parameters</h3>
+<p>But if ABCD parameters are so cool, why do we, in the end, convert to
+S-parameters. The answer is simple, S-parameter is what we measure in
+the lab and it has nice physical mapping to the real world - it descends
+from the ubiquitous concept of travelling waves. ABCD parameters are
+like the contour in a contour integral, is means to some end,
+S-parameters are end in themselves.</p>
+<h2 id="why-s-parameters-need-terminated-ports">Why S-parameters need
+terminated ports</h2>
+<p>There's another quirk of S-parameter evaluation: the ports need to be
+terminated by a reference impedance. S-parameters are always wrt a
+reference impedance. This seems onerous compared to the ABCD, Z or Y
+matrices where no such external requirement is specified. But this is
+because S-parameters are supposed to relate various incident and
+reflected waves from the network, if the termination were not matched,
+we would be measured a combination of various reflections from the
+network, the sources and the terminations.</p>
+<p>A nicer way is to say that make your transmission lines infinite in
+length - such that there is no possiblity of reflection in your lifetime
+and you have S-parameter characterization without any termination
+requirement. In fact, this is a standard abstraction in mesoscopic
+physics (and all of physics) <span class="citation"
+data-cites="datta1995electronic">(<a href="#ref-datta1995electronic"
+role="doc-biblioref">Datta 1995</a>)</span>: the leads connecting to the
+channel are assumed to be semi-infinte in one direction and hence
+reflectionless:</p>
+<figure id="fig:datta-s-parameters" data-latex-placement="htbp">
+<img src="papers/rf-network-datta-coherent-conductor.png" />
+<figcaption>From Datta's transport in Mesoscopic Systems, a
+representative setup for s-parameters <span class="citation"
+data-cites="datta1995electronic">(<a href="#ref-datta1995electronic"
+role="doc-biblioref">Datta 1995</a>)</span></figcaption>
+</figure>
+<p>by making the leads reflectionless and semi-infinite, we get immense
+analytical capacity, the same translates to matched impedance in the lab
+That is the charm of S-parameters!</p>
+<h2 class="unnumbered" id="bibliography">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent"
+role="list">
+<div id="ref-datta1995electronic" class="csl-entry" role="listitem">
+Datta, Supriyo. 1995. <em>Electronic Transport in Mesoscopic
+Systems</em>. Vol. 3. Cambridge Studies in Semiconductor Physics and
+Microelectronic Engineering. Cambridge University Press. <a
+href="https://doi.org/10.1017/CBO9780511805776">https://doi.org/10.1017/CBO9780511805776</a>.
+</div>
+<div id="ref-khanna2023thesis" class="csl-entry" role="listitem">
+Khanna, Pawan Kumar. 2023. <span>"A Low-Power 28-<span>GHz</span>
+Beamforming Receiver with on-Chip Frequency Synthesizer."</span> PhD
+thesis, University of California, Los Angeles. <a
+href="https://escholarship.org/uc/item/8wm4n41q">https://escholarship.org/uc/item/8wm4n41q</a>.
+</div>
+<div id="ref-pozar2011microwave" class="csl-entry" role="listitem">
+Pozar, David M. 2011. <em>Microwave Engineering</em>. 4th ed. John Wiley
+&amp; Sons.
+</div>
+<div id="ref-redheffer1962relation" class="csl-entry" role="listitem">
+Redheffer, Raymond. 1962. <span>"On the Relation of Transmission-Line
+Theory to Scattering and Transfer."</span> <em>Journal of Mathematics
+and Physics</em> 41 (1–4): 1–41. <a
+href="https://doi.org/10.1002/sapm19624111">https://doi.org/10.1002/sapm19624111</a>.
+</div>
+</div>
+</article>
+</main>
+
+<footer class="foot">
+  <nav class="social">
+    <a href="https://github.com/ShlokVaibhav" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+    <a href="https://www.linkedin.com/in/shlokvaibhav/" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="https://shlokvaibhav.substack.com/" aria-label="Substack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg></a>
+    <a href="https://x.com/ShlokVaibhav" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+    <a href="mailto:shlokvaibhav2000@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+  </nav>
+  <span class="colophon">© 2026 Shlok Vaibhav</span>
+</footer>
+
+</body>
+</html>
