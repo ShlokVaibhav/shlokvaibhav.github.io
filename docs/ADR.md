@@ -10,6 +10,6 @@ Short record of *why*, so changes don't undo intent. Snapshot: one small audio h
 6. **Card grid for posts (matplotlib plot-types style).** Tech Digest uses local `thumbs/`; Writing/Books hotlink each Substack post's *original* cover at its native aspect-ratio — the pre-cropped `og:image` mangled portrait covers. Books and Hobbies reuse the same card/grid/list primitives (no new system); empty slots are CSS placeholder tiles, not generated images.
 7. **Cool-neutral palette, one teal accent, in `oklch`.** One accent keeps focus on content; oklch keeps greys/accent perceptually consistent when hue is tweaked.
 8. **CV is both a web page and a PDF.** The HTML version is current/accessible; the PDF is the portable artifact. The web copy is intentionally a superset (newer role than the dated PDF).
-9. **Generated technical articles still ship as plain static HTML.** Their source-side helpers are publishing tools, not site build dependencies. Equations use native MathML, while the RF-network article deliberately shares the CNT article's compact audio control.
+9. **Generated technical articles still ship as plain static HTML.** Their source-side helpers are publishing tools, not site build dependencies. Equations use native MathML, while the RF-network article deliberately shares the CNT article's compact audio control. Article builders emit absolute Open Graph and X Card image metadata so the existing Tech Digest thumbnail can also appear in link previews.
 
 Deploy: repo `shlokvaibhav.github.io` → Pages on `main` (root). Nothing for Jekyll to process.
